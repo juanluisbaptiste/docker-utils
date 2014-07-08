@@ -103,3 +103,5 @@ while getopts "mhdwa" OPTION
             ;;
     esac
  done           
+
+ use
