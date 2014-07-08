@@ -64,7 +64,13 @@ weeks_ago () {
 
 delete_all () {
   echo "Deleting containers ALL stopped containers..." 
-  echo `$SUDO_BIN $DOCKER_BIN ps -a| grep "Exited" | awk '{print $1}' | xargs $SUDO_BIN $DOCKER_BIN rm`
+  if [ "`$SUDO_BIN $DOCKER_BIN ps -a | grep "Exited" != "" ];
+    then
+	echo -e "Deleted container ID's:\n `$SUDO_BIN $DOCKER_BIN ps -a | grep "Exited" | awk '{print $1}' | xargs $SUDO_BIN $DOCKER_BIN rm`"
+    else
+	echo "No containers to be deleted."
+	exit 0
+    fi
 } 
 
 
@@ -73,22 +79,27 @@ while getopts "mhdwa" OPTION
     case $OPTION in
         m)
             minutes_ago
+            exit
             ;;    
         h)
             hours_ago
+            exit
             ;;
         d)
             days_ago
+            exit
             ;;
         w)
             weeks_ago
+            exit
             ;;
         a)
             delete_all
+            exit
             ;;
         ?)
             use
-             exit
+            exit
             ;;
     esac
-done           
+ done           
