@@ -64,7 +64,7 @@ weeks_ago () {
 
 delete_all () {
   echo "Deleting containers ALL stopped containers..." 
-  if [ "`$SUDO_BIN $DOCKER_BIN ps -a | grep "Exited" != "" ];
+  if [ "`$SUDO_BIN $DOCKER_BIN ps -a | grep "Exited"`" != "" ];
     then
 	echo -e "Deleted container ID's:\n `$SUDO_BIN $DOCKER_BIN ps -a | grep "Exited" | awk '{print $1}' | xargs $SUDO_BIN $DOCKER_BIN rm`"
     else
