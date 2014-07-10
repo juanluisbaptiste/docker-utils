@@ -35,7 +35,7 @@ delete_container () {
 	TIME=$1    
 	echo "Deleting containers that are \"$TIME\" old..." 	
 	
-	if [ "`$SUDO_BIN $DOCKER_BIN ps -a | grep "Exited" | grep \"$TIME\"`" != "" ];
+	if [ "`$SUDO_BIN $DOCKER_BIN ps -a | grep -v "Up" | grep \"$TIME\"`" != "" ];
 	then
 	    echo -e "Deleted container ID's:\n `$SUDO_BIN $DOCKER_BIN ps -a | grep "Exited" | grep "$TIME" | awk '{print $1}' | xargs $SUDO_BIN $DOCKER_BIN rm`"
 	else
