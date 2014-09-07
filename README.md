@@ -19,7 +19,7 @@ Each option will delete the stopped containers that are reported by `docker ps -
 
 This script will attach to a running container using nsenter. First use docker ps to get the container ID and then run it like:
 
-    sudo docker ps (find the container ID lets say $PID) 
+    sudo docker ps (find the container ID, lets say $PID) 
     sudo ./docker_attach $PID
 
 
