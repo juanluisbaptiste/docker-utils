@@ -17,11 +17,12 @@ Each option will delete the stopped containers that are reported by `docker ps -
 
 ### docker_attach.sh
 
-This script will attach to a running container using nsenter. First use docker ps to get the container ID and then run it like:
+This script will attach to a running container using nsenter. Specify the container name or ID as a parameter like this:
 
-    sudo docker ps (find the container ID, lets say $PID) 
-    sudo ./docker_attach $PID
-
+    sudo ./docker_attach.sh mycontainer
+    Getting container cachesimple_web PID ...
+    Attaching to container with PID 23890 ...
+    [root@905108d3a2d4 /]# 
 
 ### Bash aliases
 You can setup bash aliases like the following ones to make it easier to use these scripts. Add the following lines to your ~/.bashrc file (adjust paths accordingly):
