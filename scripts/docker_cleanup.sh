@@ -19,6 +19,7 @@ Delete old Docker containers.
 
 OPTIONS:
 
+-p    Delete all containers that match the pattern
 -m    Delete all containers that are "Minutes old"
 -h    Delete all containers that are "Hours old"
 -d    Delete all containers that are "Days old"
@@ -28,6 +29,21 @@ OPTIONS:
 EOF
 }
 
+delete_pattern (){
+    if [ "$PATTERN" != "" ];
+        then
+	        echo "Deleting containers with pattern: \"$PATTERN\""    
+
+	        if [ "`$SUDO_BIN $DOCKER_BIN ps -a | grep -v "Up" | grep -e \"$PATTERN\"`" != "" ];
+	        then
+	            echo -e "Deleted container ID's:\n `$SUDO_BIN $DOCKER_BIN ps -a | grep  -v "Up" | grep -e "$PATTERN" | awk '{print $1}' | xargs $SUDO_BIN $DOCKER_BIN rm`"
+	        else
+	            echo "No containers with that pattern to be deleted."
+	            exit 0
+	        fi
+	fi 
+
+}
 
 delete_containers () {
     if [ "$1" != "" ];
@@ -74,9 +90,19 @@ delete_all () {
 } 
 
 
-while getopts "mhdwa" OPTION
+while getopts "p:mhdwa" OPTION
   do
     case $OPTION in
+	p)
+	    PATTERN=$OPTARG
+	    if [ "$PATTERN" == ""  ]
+	    then
+	      echo "No pattern specified."
+	      exit 1
+            fi
+	    delete_pattern
+	    exit
+	    ;;
         m)
             minutes_ago
             exit
