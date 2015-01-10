@@ -29,7 +29,7 @@ EOF
 }
 
 
-delete_container () {
+delete_containers () {
     if [ "$1" != "" ];
     then
 	TIME=$1    
@@ -46,20 +46,20 @@ delete_container () {
 }    
 
 minutes_ago () {
-  delete_container "minute ago"
-  delete_container "minutes ago"
+  delete_containers "minute ago"
+  delete_containers "minutes ago"
 } 
 
 hours_ago () {
-  delete_container "hours ago"
+  delete_containers "hours ago"
 } 
 
 days_ago () {
-  delete_container "days ago"
+  delete_containers "days ago"
 } 
 
 weeks_ago () {
-  delete_container "weeks ago"
+  delete_containers "weeks ago"
 } 
 
 delete_all () {
